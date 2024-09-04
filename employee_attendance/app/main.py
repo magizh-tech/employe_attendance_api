@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from . import models
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine
-from .routers import employee, attendance
+from .routers import employee, attendance,auth
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -26,3 +26,4 @@ app.add_middleware(
 
 app.include_router(employee.router)
 app.include_router(attendance.router)
+app.include_router(auth.router)

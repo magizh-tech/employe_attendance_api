@@ -8,6 +8,7 @@ router = APIRouter()
 
 @router.post("/employees/", response_model=schemas.Employee)
 def create_employee(employee: schemas.EmployeeCreate, db: Session = Depends(get_db)):
+    
     return crud.create_employee(db=db, employee=employee)
 
 @router.get("/employees/{employee_id}", response_model=schemas.Employee)
