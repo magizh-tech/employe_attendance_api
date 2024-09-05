@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlalchemy.orm import Session
 from . import models, schemas, utils
 
@@ -19,9 +20,10 @@ def create_employee(db: Session, employee: schemas.EmployeeCreate):
 def get_attendance(db: Session, employee_id: int, skip: int = 0, limit: int = 10):
     return db.query(models.Attendance).filter(models.Attendance.employee_id == employee_id).offset(skip).limit(limit).all()
 
-def create_attendance(db: Session, attendance: schemas.AttendanceCreate, employee_id: int):
-    db_attendance = models.Attendance(**attendance.dict(), employee_id=employee_id)
-    db.add(db_attendance)
+def start_day(db: Session, employee_id: int):
+    attendance=models.Attendance(employee_id=employee_id, start_day=datetime.utcnow())
+    db.add(attendance)
     db.commit()
-    db.refresh(db_attendance)
-    return db_attendance
+    db.refresh(attendance)
+    return attendance
+

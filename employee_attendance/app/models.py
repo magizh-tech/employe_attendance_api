@@ -19,9 +19,9 @@ class Attendance(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     employee_id = Column(Integer, ForeignKey("employees.id"))
-    date = Column(DateTime, default=datetime.utcnow)  # Date of attendance
     start_day = Column(DateTime)  # When the employee starts the workday
     end_day = Column(DateTime)  # When the employee ends the workday
+    work_done = Column(String)
 
     employee = relationship("Employee", back_populates="attendance")
     breaks = relationship("Break", back_populates="attendance")
@@ -33,5 +33,5 @@ class Break(Base):
     attendance_id = Column(Integer, ForeignKey("attendances.id"))
     start_break = Column(DateTime)  # When the employee starts a break
     end_break = Column(DateTime)  # When the employee ends a break
-
+    reason = Column(String)
     attendance = relationship("Attendance", back_populates="breaks")
