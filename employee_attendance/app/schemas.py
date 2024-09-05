@@ -22,6 +22,7 @@ class EmployeeBase(BaseModel):
     department: str
 
 class EmployeeCreate(EmployeeBase):
+    password: str
     pass
 
 class Employee(EmployeeBase):
@@ -30,3 +31,11 @@ class Employee(EmployeeBase):
 
     class Config:
         orm_mode = True
+
+class Token(BaseModel):
+    access_token:str
+    Token_type: str
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
