@@ -61,3 +61,20 @@ class DayStart(BaseModel):
 class DayEnd(BaseModel):
     end_day: datetime
     work_done: str
+
+
+class LeaveCreate(BaseModel):
+    start_date: datetime
+    end_date: datetime
+    reason: str
+
+class LeaveResponse(BaseModel):
+    id: int
+    employee_id: int
+    start_date: datetime
+    end_date: datetime
+    reason: str
+    approved: bool
+
+    class Config:
+        orm_mode = True

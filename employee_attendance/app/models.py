@@ -1,7 +1,9 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from .database import Base
+
+
 
 class Employee(Base):
     __tablename__ = "employees"
@@ -35,3 +37,16 @@ class Break(Base):
     end_break = Column(DateTime)  # When the employee ends a break
     reason = Column(String)
     attendance = relationship("Attendance", back_populates="breaks")
+
+
+class Leave(Base):
+    __tablename__ = "leaves"
+
+    id = Column(Integer, primary_key=True, index=True)
+    employee_id = Column(Integer, ForeignKey("employees.id"))
+    start_date = Column(DateTime)  
+    end_date = Column(DateTime)    
+    reason = Column(String)        
+    approved = Column(Boolean, default=False)  
+
+    employee = relationship("Employee", back_populates="leaves")
