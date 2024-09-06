@@ -3,6 +3,9 @@ from . import models
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine
 from .routers import employee, attendance,auth
+from fastapi import FastAPI
+from .routers import leave_management
+
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -27,4 +30,5 @@ app.add_middleware(
 app.include_router(employee.router)
 app.include_router(attendance.router)
 app.include_router(auth.router)
+app.include_router(leave_management.router)
 

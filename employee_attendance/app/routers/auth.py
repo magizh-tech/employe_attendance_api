@@ -23,3 +23,11 @@ def login(user_credentials:schemas.LoginRequest,db: Session = Depends(database.g
     access_token = oauth2.create_access_token(data ={"employee_id": employee.id})
 
     return {"access_token": access_token, "Token_type": "bearer"}
+
+@router.get("/aaa")
+def rough(db: Session = Depends(database.get_db)):
+    employe=4
+    data=db.query(models.Employee).filter(models.Employee.id == employe).first()
+    print(data.__dict__)
+    print(data.attendance)
+    return data

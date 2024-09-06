@@ -14,7 +14,7 @@ class Employee(Base):
     password = Column(String)
     department = Column(String)
 
-    attendance = relationship("Attendance", back_populates="employee")
+    attendance = relationship("Attendance")
 
 class Attendance(Base):
     __tablename__ = "attendances"
@@ -26,8 +26,8 @@ class Attendance(Base):
     work_done = Column(String)
 
     employee = relationship("Employee", back_populates="attendance")
-    breaks = relationship("Break", back_populates="attendance")
-
+    # breaks = relationship("Break", back_populates="attendance")
+# 
 class Break(Base):
     __tablename__ = "breaks"
 
@@ -36,7 +36,7 @@ class Break(Base):
     start_break = Column(DateTime)  # When the employee starts a break
     end_break = Column(DateTime)  # When the employee ends a break
     reason = Column(String)
-    attendance = relationship("Attendance", back_populates="breaks")
+    # attendance = relationship("Attendance", back_populates="breaks")
 
 
 class Leave(Base):
@@ -49,4 +49,4 @@ class Leave(Base):
     reason = Column(String)        
     approved = Column(Boolean, default=False)  
 
-    employee = relationship("Employee", back_populates="leaves")
+    # employee = relationship("Employee", back_populates="leaves")

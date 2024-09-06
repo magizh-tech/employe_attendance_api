@@ -3,8 +3,9 @@ from datetime import datetime
 from typing import List, Optional
 
 class AttendanceBase(BaseModel):
-    date: datetime
-    status: str
+    # date: datetime
+    # status: str
+    pass
 
 class AttendanceCreate(AttendanceBase):
     pass
@@ -18,6 +19,8 @@ class TokenData(BaseModel):
 class Attendance(AttendanceBase):
     id: int
     employee_id: int
+    start_day: datetime
+    end_day: Optional[datetime]
 
     class Config:
         orm_mode = True

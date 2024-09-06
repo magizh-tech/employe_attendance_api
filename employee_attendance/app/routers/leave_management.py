@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import schemas, models, crud
+from ..import schemas, models, crud
 from ..database import get_db
 
-router = APIRouter()
 
-@router.post("/employees/{employee_id}/leaves/", response_model=schemas.LeaveResponse)
+
+router = APIRouter(tags=['Leave Management'])
+
+@router.post("/leave/{employee_id}/leaves/", response_model=schemas.LeaveResponse)
 def apply_for_leave(employee_id: int, leave: schemas.LeaveCreate, db: Session = Depends(get_db)):
     return crud.create_leave(db, leave, employee_id)
 
