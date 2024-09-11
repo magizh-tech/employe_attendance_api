@@ -1,5 +1,8 @@
 const express = require('express');
+// express is used to create the server, and the router is used to handle the routes
+
 const router = express.Router();
+// router is used to handle the routes
 const employeesController = require('../../controllers/employeesController');
 const ROLES_LIST = require('../../config/roles_list');
 const verifyRoles = require('../../middleware/verifyRoles');

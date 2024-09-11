@@ -13,7 +13,9 @@ const handleLogin = async (req, res) => {
     // evaluate password 
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
+        console.log(foundUser.roles)
         const roles = Object.values(foundUser.roles).filter(Boolean);
+        // here filter method is used to remove undefined values
         // create JWTs
         const accessToken = jwt.sign(
             {

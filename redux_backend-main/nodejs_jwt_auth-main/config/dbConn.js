@@ -6,6 +6,8 @@ const connectDB = async () => {
             useUnifiedTopology: true,
             useNewUrlParser: true
         });
+        // useUb=nifiedTopology: true to avoid deprecation warning
+        // useNewUrlParser: true to avoid deprecation warning
     } catch (err) {
         console.error(err);
     }

@@ -1,16 +1,32 @@
 require('dotenv').config();
+// dot env is used to access the .env file
+
 const express = require('express');
+// express is used to create the server
 const app = express();
+// app is used to create the server
 const path = require('path');
+
+
 const cors = require('cors');
+
+
 const corsOptions = require('./config/corsOptions');
+
 const { logger } = require('./middleware/logEvents');
+
 const errorHandler = require('./middleware/errorHandler');
+
 const verifyJWT = require('./middleware/verifyJWT');
+
 const cookieParser = require('cookie-parser');
+
 const credentials = require('./middleware/credentials');
+
 const mongoose = require('mongoose');
+
 const connectDB = require('./config/dbConn');
+
 const PORT = process.env.PORT || 3500;
 
 // Connect to MongoDB
@@ -28,6 +44,7 @@ app.use(cors(corsOptions));
 
 // built-in middleware to handle urlencoded form data
 app.use(express.urlencoded({ extended: false }));
+// to handle form data, to know more go to https://expressjs.com/en/api.html#express.urlencoded
 
 // built-in middleware for json 
 app.use(express.json());
