@@ -6,9 +6,9 @@ from .routers import employee, attendance,auth
 from fastapi import FastAPI
 from .routers import leave_management
 
-
 models.Base.metadata.create_all(bind=engine)
-
+# metadata is the table that contains the database, engine is the connection
+# metadata means data about the database
 
 app = FastAPI()
 
@@ -16,7 +16,6 @@ origins = [
     "http://localhost:5173",  # Your frontend origin
     "http://127.0.0.1:5173",  # Alternative frontend origin
 ]
-
 
 app.add_middleware(
     CORSMiddleware,

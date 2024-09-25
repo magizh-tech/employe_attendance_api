@@ -4,7 +4,6 @@ from datetime import datetime
 from .database import Base
 
 
-
 class Employee(Base):
     __tablename__ = "employees"
 
@@ -21,9 +20,9 @@ class Attendance(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     employee_id = Column(Integer, ForeignKey("employees.id"))
-    start_day = Column(DateTime)  # When the employee starts the workday
-    end_day = Column(DateTime)  # When the employee ends the workday
-    work_done = Column(String)
+    date= Column(DateTime, default=datetime.utcnow)
+    type= Column(String)
+    
 
     employee = relationship("Employee", back_populates="attendance")
     # breaks = relationship("Break", back_populates="attendance")
@@ -36,6 +35,13 @@ class Break(Base):
     start_break = Column(DateTime)  # When the employee starts a break
     end_break = Column(DateTime)  # When the employee ends a break
     reason = Column(String)
+    word_done_so_far=Column(String)
+    # 
+    start_acknowledged_by=Column(Integer, ForeignKey("employees.id"))
+    end_acknowledged_by=Column(Integer, ForeignKey("employees.id"))
+    start_location=Column(String)
+    end_location=Column(String)
+
     # attendance = relationship("Attendance", back_populates="breaks")
 
 
@@ -47,6 +53,7 @@ class Leave(Base):
     start_date = Column(DateTime)  
     end_date = Column(DateTime)    
     reason = Column(String)        
-    approved = Column(Boolean, default=False)  
+    status=Column(String) #applied, approved, rejected
+
 
     # employee = relationship("Employee", back_populates="leaves")
