@@ -32,7 +32,12 @@ class EmployeeBase(BaseModel):
 
 class EmployeeCreate(EmployeeBase):
     password: str
-    pass
+    
+    class Config:
+        # this is required to avoid errors when serializing, deserializing
+        orm_mode = True
+
+
 
 class Employee(EmployeeBase):
     id: int

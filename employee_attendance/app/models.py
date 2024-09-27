@@ -22,8 +22,6 @@ class Attendance(Base):
     employee_id = Column(Integer, ForeignKey("employees.id"))
     date= Column(DateTime, default=datetime.utcnow)
     type= Column(String)
-    
-
     employee = relationship("Employee", back_populates="attendance")
     # breaks = relationship("Break", back_populates="attendance")
 # 

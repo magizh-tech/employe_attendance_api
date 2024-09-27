@@ -24,6 +24,17 @@ def login(user_credentials:schemas.LoginRequest,db: Session = Depends(database.g
 
     return {"access_token": access_token, "Token_type": "bearer"}
 
+
+@router.post("/register", status_code=status.HTTP_201_CREATED)
+def register(user: schemas.EmployeeCreate, db: Session = Depends(database.get_db)):
+    hashed_password = utils.hash(user.password)
+    user.password = hashed_password
+    new_user = models.Employee(**user.dict())
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
 @router.get("/aaa")
 def rough(db: Session = Depends(database.get_db)):
     employe=4
