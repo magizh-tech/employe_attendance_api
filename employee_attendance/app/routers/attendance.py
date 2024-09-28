@@ -1,10 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from .. import crud, schemas, models
+from .. import crud, schemas, models,oauth2
 from ..database import get_db
 
-router = APIRouter()
+router = APIRouter(tags=['Attendance'])
 
 @router.post("/employees/{employee_id}/attendance/", response_model=schemas.Attendance)
 def create_attendance(employee_id: int, attendance: schemas.AttendanceCreate, db: Session = Depends(get_db)):
@@ -13,3 +13,9 @@ def create_attendance(employee_id: int, attendance: schemas.AttendanceCreate, db
 @router.get("/employees/{employee_id}/attendance/", response_model=List[schemas.Attendance])
 def read_attendance(employee_id: int, skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return crud.get_attendance(db=db, employee_id=employee_id, skip=skip, limit=limit)
+
+
+@router.get("/employees/attendance/start_day/",response_model=schemas.DayStart)
+def start_day(db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
+    return crud.start_day(db=db, employee_id=current_user.id)
+

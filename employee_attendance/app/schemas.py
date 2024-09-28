@@ -1,17 +1,26 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 class AttendanceBase(BaseModel):
-    date: datetime
-    status: str
+    # date: datetime
+    # status: str
+    pass
 
 class AttendanceCreate(AttendanceBase):
     pass
 
+
+class TokenData(BaseModel):
+    id: Optional[str] = None
+
+
+
 class Attendance(AttendanceBase):
     id: int
     employee_id: int
+    start_day: datetime
+    end_day: Optional[datetime]
 
     class Config:
         orm_mode = True
@@ -23,7 +32,12 @@ class EmployeeBase(BaseModel):
 
 class EmployeeCreate(EmployeeBase):
     password: str
-    pass
+    
+    class Config:
+        # this is required to avoid errors when serializing, deserializing
+        orm_mode = True
+
+
 
 class Employee(EmployeeBase):
     id: int
@@ -39,3 +53,36 @@ class Token(BaseModel):
 class LoginRequest(BaseModel):
     email: str
     password: str
+
+
+class BreakStart(BaseModel):
+    start_break: datetime
+    reason: str
+
+class BreakEnd(BaseModel):
+    end_break: datetime
+    
+
+class DayStart(BaseModel):
+    start_day: datetime
+
+class DayEnd(BaseModel):
+    end_day: datetime
+    work_done: str
+
+
+class LeaveCreate(BaseModel):
+    start_date: datetime
+    end_date: datetime
+    reason: str
+
+class LeaveResponse(BaseModel):
+    id: int
+    employee_id: int
+    start_date: datetime
+    end_date: datetime
+    reason: str
+    approved: bool
+
+    class Config:
+        orm_mode = True
