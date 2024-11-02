@@ -1,7 +1,7 @@
 from jose import JWTError, jwt
 from datetime import timedelta
 
-from app import models
+from . import models
 from .import schemas,database
 from fastapi import Depends,status, HTTPException
 from fastapi.security import OAuth2PasswordBearer

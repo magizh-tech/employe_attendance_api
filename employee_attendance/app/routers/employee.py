@@ -9,14 +9,14 @@ router = APIRouter()
 
 
 
-@router.get("/employees/{employee_id}", response_model=schemas.Employee)
+@router.get("/employees/{employee_id}", response_model=schemas.EmployeeSchema)
 def read_employee(employee_id: int, db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
     db_employee = crud.get_employee(db=db, employee_id=employee_id)
     if db_employee is None:
         raise HTTPException(status_code=404, detail="Employee not found")
     return db_employee
 
-@router.get("/employees/", response_model=List[schemas.Employee])
+@router.get("/employees/", response_model=List[schemas.EmployeeSchema])
 def read_employees(skip: int = 0, limit: int = 10, db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
     employees = crud.get_employees(db=db, skip=skip, limit=limit)
     return employees

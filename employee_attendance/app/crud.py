@@ -8,7 +8,7 @@ def get_employee(db: Session, employee_id: int):
 def get_employees(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.Employee).offset(skip).limit(limit).all()
 
-def create_employee(db: Session, employee: schemas.EmployeeCreate):
+def create_employee(db: Session, employee: schemas.EmployeeCreateSchema):
     hashed_password = utils.hash(employee.password)
     employee.password = hashed_password
     db_employee = models.Employee(**employee.dict())
@@ -28,7 +28,7 @@ def start_day(db: Session, employee_id: int):
     return attendance
 
 
-def create_leave(db: Session, leave: schemas.LeaveCreate, employee_id: int):
+def create_leave(db: Session, leave: schemas.LeaveCreateSchema, employee_id: int):
     db_leave = models.Leave(
         employee_id=employee_id,
         start_date=leave.start_date,

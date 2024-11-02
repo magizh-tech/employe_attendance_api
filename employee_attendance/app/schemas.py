@@ -2,81 +2,75 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import List, Optional
 
-class AttendanceBase(BaseModel):
-    # date: datetime
-    # status: str
+class AttendanceBaseSchema(BaseModel):
     pass
 
-class AttendanceCreate(AttendanceBase):
+class AttendanceCreateSchema(AttendanceBaseSchema):
     pass
 
-
-class TokenData(BaseModel):
+class TokenDataSchema(BaseModel):
     id: Optional[str] = None
 
-
-
-class Attendance(AttendanceBase):
+class AttendanceSchema(AttendanceBaseSchema):
     id: int
     employee_id: int
     start_day: datetime
     end_day: Optional[datetime]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-class EmployeeBase(BaseModel):
+class EmployeeBaseSchema(BaseModel):
     name: str
     email: str
     department: str
 
-class EmployeeCreate(EmployeeBase):
+class EmployeeCreateSchema(EmployeeBaseSchema):
     password: str
     
     class Config:
-        # this is required to avoid errors when serializing, deserializing
-        orm_mode = True
+        from_attributes = True
 
-
-
-class Employee(EmployeeBase):
+class EmployeeSchema(EmployeeBaseSchema):
     id: int
-    attendance: List[Attendance] = []
+    attendance: List[AttendanceSchema] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-class Token(BaseModel):
-    access_token:str
-    Token_type: str
+class TokenSchema(BaseModel):
+    access_token: str
+    token_type: str
 
-class LoginRequest(BaseModel):
+class LoginRequestSchema(BaseModel):
     email: str
     password: str
 
+class BreakCreateSchema(BaseModel):
+    start_break: datetime
+    end_break: datetime
+    reason: str
 
-class BreakStart(BaseModel):
+class BreakStartSchema(BaseModel):
     start_break: datetime
     reason: str
 
-class BreakEnd(BaseModel):
+class BreakEndSchema(BaseModel):
     end_break: datetime
-    
 
-class DayStart(BaseModel):
+class DayStartSchema(BaseModel):
     start_day: datetime
 
-class DayEnd(BaseModel):
+class DayEndSchema(BaseModel):
     end_day: datetime
     work_done: str
 
-
-class LeaveCreate(BaseModel):
+class LeaveCreateSchema(BaseModel):
     start_date: datetime
     end_date: datetime
     reason: str
 
-class LeaveResponse(BaseModel):
+class LeaveResponseSchema(BaseModel):
     id: int
     employee_id: int
     start_date: datetime
@@ -85,4 +79,4 @@ class LeaveResponse(BaseModel):
     approved: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True

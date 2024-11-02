@@ -4,7 +4,7 @@ from . import models, schemas, utils
 
 
 
-def create_break(db: Session, break_: schemas.BreakStart, employee_id: int):
+def create_break(db: Session, break_: schemas.BreakStartSchema, employee_id: int):
 
     db_break = models.Break(**break_.dict(), employee_id=employee_id)
     db.add(db_break)
