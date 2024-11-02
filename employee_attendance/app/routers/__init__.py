@@ -10,8 +10,8 @@ from .breaks import router as breaks_router
 router = APIRouter()
 
 # Include each router
+router.include_router(auth_router, prefix="/auth")
 router.include_router(attendance_router, prefix="/attendance")
 router.include_router(employee_router, prefix="/employee")
 router.include_router(leave_management_router, prefix="/leave_management")
-router.include_router(auth_router, prefix="/auth")
 router.include_router(breaks_router, prefix="/breaks")

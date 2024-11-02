@@ -26,8 +26,8 @@ app.add_middleware(
 )
 
 
+app.include_router(auth.router)
 app.include_router(employee.router)
 app.include_router(attendance.router)
-app.include_router(auth.router)
 app.include_router(leave_management.router)
 
