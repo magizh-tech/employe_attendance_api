@@ -7,7 +7,7 @@ from ..database import get_db
 router = APIRouter(tags=['Attendance'])
 
 @router.post("/employees/{employee_id}/attendance/", response_model=schemas.AttendanceSchema)
-def create_attendance(employee_id: int, attendance: schemas.AttendanceCreateSchema, db: Session = Depends(get_db)):
+def mark_attendance(employee_id: int, attendance: schemas.AttendanceCreateSchema, db: Session = Depends(get_db)):
     return crud.create_attendance(db=db, attendance=attendance, employee_id=employee_id)
 
 @router.get("/employees/{employee_id}/attendance/", response_model=List[schemas.AttendanceSchema])
